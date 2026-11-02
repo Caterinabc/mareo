@@ -1,0 +1,526 @@
+@font-face {
+  font-family: "Space Grotesk";
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/SpaceGrotesk-Regular-1.woff2") format("woff2"),
+       url("fonts/SpaceGrotesk-Regular-1.woff") format("woff");
+}
+@font-face {
+  font-family: "Space Grotesk";
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/SpaceGrotesk-Medium-1.woff2") format("woff2"),
+       url("fonts/SpaceGrotesk-Medium-1.woff") format("woff");
+}
+@font-face {
+  font-family: "Space Grotesk";
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/SpaceGrotesk-Bold-1.woff2") format("woff2"),
+       url("fonts/SpaceGrotesk-Bold-1.woff") format("woff");
+}
+
+:root {
+  --magenta: #EC00FF;
+  --rojo: #FF0017;
+  --negro: #000;
+}
+
+* { box-sizing: border-box; }
+
+html, body { min-height: 100%; }
+body.home { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: "Space Grotesk", system-ui, sans-serif;
+}
+
+body.home {
+  background: var(--magenta);
+  overflow: hidden;
+}
+
+/* ---- Portada: espiral animada ---- */
+.espiral {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.espiral > .caja {
+  width: 100vw;
+  height: 90vw;
+  background: var(--rojo);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: rotate(-45deg);
+  animation: espiral 5s ease-in-out -1s alternate infinite;
+}
+
+.caja > .caja {
+  width: 82.5%;
+  height: 82.5%;
+  animation: inherit;
+  display: inherit;
+  justify-content: inherit;
+  align-items: inherit;
+  transform: inherit;
+}
+
+.caja.a { background: var(--magenta); }
+.caja.b { background: var(--rojo); }
+.espiral > .caja { background: var(--rojo); }
+
+@keyframes espiral {
+  from { transform: rotate(-45deg); }
+  to   { transform: rotate(45deg); }
+}
+
+@media (max-width: 767px) {
+  .espiral > .caja { width: 200vw; height: 100vh; }
+}
+
+/* ---- Logo y botón de entrada ---- */
+.logo {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(648px, 80vw);
+  height: auto;
+  z-index: 99;
+}
+
+.entrar {
+  position: fixed;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 99;
+  color: var(--negro);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 6rem;
+  line-height: 1.2;
+  transition: transform .3s ease;
+}
+.entrar:hover, .entrar:focus-visible {
+  transform: translateX(-50%) scale(1.08) rotate(-3deg);
+}
+
+@media (max-width: 1024px) { .entrar { bottom: 100px; } }
+@media (max-width: 767px) {
+  .entrar { font-size: 4rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .espiral > .caja, .caja > .caja { animation: none; }
+  .entrar { transition: none; }
+}
+
+/* ================= Página: Menú ================= */
+body.menu {
+  min-height: 100vh;
+  background: #1d3cff url("fondo-azul.jpg") center / contain repeat;
+  cursor: url("asterisco-2.png") 12 12, auto;
+  overflow: hidden;
+  --tile: calc(45vh * 1481 / 461); /* ancho de una repetición del logo */
+}
+
+/* Tres filas de logos que se desplazan: arriba →, centro ←, abajo → */
+.filas {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  pointer-events: none;
+}
+.fila {
+  height: 45vh;
+  width: 100%;
+  flex: none;
+  opacity: .7;
+  background: url("logo-menu.svg") 0 0 / auto 100% repeat-x;
+  animation: desplazar 80s linear infinite;
+}
+.fila.inversa { animation-direction: reverse; }
+
+@keyframes desplazar {
+  from { background-position-x: 0; }
+  to   { background-position-x: var(--tile); }
+}
+
+.menu-nav {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.menu-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 20px;
+  width: min(1140px, 100%);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.menu-nav a {
+  display: block;
+  padding: 100px 0;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 2.5rem;
+  color: #000;
+  border: 3px solid #000;
+  border-radius: 156px;
+  transition: transform .3s ease, color .3s ease, border-color .3s ease, box-shadow .3s ease;
+}
+.menu-nav a:hover, .menu-nav a:focus-visible {
+  color: #fff;
+  border-color: #fff;
+  box-shadow: 0 0 50px 15px rgba(255, 255, 255, .5);
+  transform: translateY(-20px);
+  cursor: url("asterisco-1.png") 12 12, auto;
+}
+
+@media (max-width: 1024px) {
+  .menu-nav a { font-size: 2rem; }
+  .menu-nav a:hover, .menu-nav a:focus-visible { transform: translateY(-10px); }
+}
+@media (max-width: 767px) {
+  body.menu { overflow: auto; }
+  .menu-nav ul { grid-template-columns: 1fr; padding: 0 30px; gap: 16px; }
+  .menu-nav a { padding: 20px 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fila { animation: none; }
+  .menu-nav a { transition: none; }
+}
+
+/* ================= Navegación superior (páginas internas) ================= */
+.topnav {
+  position: relative;
+  z-index: 99;
+  width: min(1000px, 100%);
+  margin: 0 auto;
+  padding: 0 20px;
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+}
+.topnav .marca img { display: block; height: 30px; width: auto; }
+.topnav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+.topnav li a {
+  display: block;
+  padding: 10px 0;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 1.7rem;
+  color: #000;
+  border: 2px solid #000;
+  border-radius: 156px;
+  transition: transform .3s ease, color .3s ease, border-color .3s ease, box-shadow .3s ease;
+}
+.topnav li a:hover, .topnav li a:focus-visible {
+  color: #fff;
+  border-color: #fff;
+  box-shadow: 0 0 50px 15px rgba(255, 255, 255, .5);
+  transform: translateY(-5px);
+}
+.topnav li a[aria-current="page"] { background: rgba(255, 255, 255, .35); }
+
+@media (max-width: 767px) {
+  .topnav li a { font-size: 1rem; }
+}
+
+/* ================= Página: Música ================= */
+body.pagina {
+  min-height: 100vh;
+  padding: 40px 0;
+  display: flex;
+  flex-direction: column;
+}
+/* El contenido principal se centra en el espacio entre el menú y el final de la página */
+body.pagina > main { flex: 1; display: grid; align-content: center; }
+body.musica {
+  background: #ff2fb0 url("fondo-fucsia.jpg") center / contain repeat;
+  cursor: url("asterisco-2.png") 12 12, auto;
+}
+body.musica a:hover { cursor: url("estrella-verde.png") 12 12, auto; }
+
+.discos {
+  width: min(1200px, 100%);
+  margin: 0 auto;
+  padding: 40px 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 60px 20px;
+  justify-items: center;
+}
+.disco { position: relative; display: block; width: 250px; max-width: 100%; }
+.disco img {
+  display: block;
+  width: 250px;
+  height: 250px;
+  max-width: 100%;
+  object-fit: contain;
+  animation: girar 10s linear infinite;
+  transition: scale .3s ease;
+}
+.disco:hover img, .disco:focus-visible img { scale: 1.1; }
+.disco.v8 img { animation-duration: 8s; }
+.disco.v11 img { animation-duration: 11s; }
+.disco.v12 img { animation-duration: 12s; }
+
+/* Columnas: cada una apila dos discos como en el original */
+.col-discos { display: grid; gap: 60px; justify-items: center; align-content: start; }
+
+.nuevo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  margin: 0;
+  white-space: nowrap;
+  text-align: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 3.1rem;
+  line-height: 1.1;
+  -webkit-text-stroke: 2px #000;
+  transform: translate(-50%, -50%) rotate(-12deg);
+  pointer-events: none;
+}
+
+@keyframes girar {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(359deg); }
+}
+
+@media (max-width: 767px) {
+  body.pagina { padding: 20px 0; }
+  .discos { grid-template-columns: repeat(2, 1fr); gap: 30px 10px; padding: 30px 10px; }
+  .col-discos { gap: 30px; }
+  .disco, .disco img { width: min(250px, 42vw); height: auto; aspect-ratio: 1; }
+  .nuevo { font-size: 1.6rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .disco img { animation: none; }
+  .topnav li a, .disco img { transition: none; }
+}
+
+/* Variante clara de la navegación (fondos oscuros) */
+.topnav.claro li a { color: #fff; border-color: #fff; }
+.topnav.claro li a[aria-current="page"] { background: rgba(255, 255, 255, .2); }
+
+/* ================= Página: Banda ================= */
+body.banda {
+  background: #101010;
+  color: #fff;
+  cursor: url("asterisco-2.png") 12 12, auto;
+  overflow-x: hidden;
+}
+body.banda a:hover { cursor: url("estrella-verde.png") 12 12, auto; }
+
+/* Rueda de círculos concéntricos que se aleja con zoom */
+.rueda {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: repeating-radial-gradient(circle, #272727 0 13.4px, #101010 13.4px 26.8px, #3E3E3E 26.8px 40px);
+  filter: brightness(.4);
+  animation: zoom-rueda 30s ease infinite alternate;
+}
+@keyframes zoom-rueda {
+  from { transform: scale(5); }
+  to   { transform: scale(1); }
+}
+
+/* Grano de película */
+.grano {
+  position: fixed;
+  top: -50%; left: -50%; right: -50%; bottom: -50%;
+  z-index: -1;
+  pointer-events: none;
+  opacity: .9;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .22 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation: grano 1.2s steps(1) infinite;
+}
+@keyframes grano {
+  0%   { transform: translate(0, 0); }
+  10%  { transform: translate(-5%, -5%); }
+  20%  { transform: translate(-10%, 5%); }
+  30%  { transform: translate(5%, -10%); }
+  40%  { transform: translate(-5%, 15%); }
+  50%  { transform: translate(-10%, 5%); }
+  60%  { transform: translate(15%, 0); }
+  70%  { transform: translate(0, 10%); }
+  80%  { transform: translate(-15%, 0); }
+  90%  { transform: translate(10%, 5%); }
+  100% { transform: translate(5%, 0); }
+}
+
+.biografia {
+  width: min(1000px, 100%);
+  margin: 0 auto;
+  padding: 40px 20px 60px;
+}
+.biografia p {
+  margin: 0 0 1.5em;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.5rem;
+  line-height: 1.5;
+}
+
+.galeria { width: min(1200px, 100%); margin: 0 auto; padding: 20px 20px 40px; }
+.galeria h2 {
+  margin: 0 0 40px;
+  text-align: center;
+  font-weight: 400;
+  font-size: 3rem;
+  text-transform: uppercase;
+}
+.galeria ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.galeria button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: inherit;
+}
+.galeria img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  transition: transform .3s ease;
+}
+.galeria button:hover img, .galeria button:focus-visible img { transform: scale(1.04); }
+
+dialog.visor {
+  max-width: 92vw;
+  max-height: 92vh;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+dialog.visor::backdrop { background: rgba(0, 0, 0, .85); }
+dialog.visor img { display: block; max-width: 92vw; max-height: 88vh; margin: auto; }
+dialog.visor form { position: absolute; top: 8px; right: 8px; }
+dialog.visor button {
+  font: inherit; font-size: 1.5rem; line-height: 1;
+  width: 2.5rem; height: 2.5rem; border-radius: 50%;
+  border: 2px solid #fff; background: rgba(0, 0, 0, .6); color: #fff;
+}
+
+@media (max-width: 1024px) {
+  .galeria ul { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+}
+@media (max-width: 767px) {
+  .biografia p { font-size: 1.15rem; }
+  .galeria h2 { font-size: 2rem; }
+  .galeria ul { grid-template-columns: repeat(2, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rueda, .grano { animation: none; }
+  .rueda { transform: none; }
+  .galeria img { transition: none; }
+}
+
+/* ================= Página: En vivo ================= */
+body.envivo {
+  background: #ff7a00 url("fondo-naranja.jpg") center / cover fixed;
+  color: #000;
+  cursor: url("asterisco-2.png") 12 12, auto;
+}
+body.envivo a:hover { cursor: url("estrella-verde.png") 12 12, auto; }
+
+.agenda { width: min(1370px, 100%); margin: 0 auto; padding: 60px 20px 0; }
+.agenda ul { list-style: none; margin: 0; padding: 0; }
+.agenda span { display: block; }
+
+/* Gira de Japón */
+.gira {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding: 20px 20px 0;
+  margin-bottom: 40px;
+  background: url("fondo-gris.jpg") center / cover;
+}
+.gira::before {
+  content: "";
+  position: absolute;
+  inset: -40px;
+  z-index: -1;
+  background: url("bandera-japon.png") center / cover no-repeat;
+  mix-blend-mode: multiply;
+  filter: brightness(143%) saturate(135%) blur(20px);
+}
+.gira h1 { margin: 0; text-align: center; font-weight: 700; font-size: 2rem; }
+.gira .subtitulo { margin: 0 0 10px; text-align: center; font-weight: 500; font-size: 1.5rem; }
+
+.fechas li, .eventos li {
+  display: grid;
+  gap: 20px;
+  align-items: end;
+  padding: 12px 0;
+  border-bottom: 2px solid #000;
+  font-weight: 500;
+  font-size: 1.5rem;
+  line-height: 1.3;
+}
+.fechas li { grid-template-columns: repeat(3, 1fr); }
+.fechas .ciudad { text-align: center; }
+.fechas .fecha { text-align: right; }
+
+/* Conciertos anteriores */
+.eventos li { grid-template-columns: repeat(4, 1fr); }
+.eventos .precio { text-align: right; }
+.eventos .precio a, .eventos .precio .sin-enlace { color: #000; text-decoration: none; }
+.eventos .precio a:hover, .eventos .precio a:focus-visible { color: #fff; }
+
+@media (max-width: 1024px) {
+  .fechas li, .eventos li { font-size: 1.15rem; }
+}
+@media (max-width: 767px) {
+  .agenda { padding-top: 30px; }
+  .fechas li { grid-template-columns: 1fr; gap: 2px; padding: 10px 0; }
+  .fechas .ciudad, .fechas .fecha { text-align: left; }
+  .eventos li { grid-template-columns: 1fr 1fr; gap: 8px 16px; font-size: 1rem; }
+  .eventos .precio { text-align: left; }
+  .gira h1 { font-size: 1.5rem; }
+  .gira .subtitulo { font-size: 1.15rem; }
+}

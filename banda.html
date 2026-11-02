@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Banda – Mareo!</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="pagina banda">
+  <div class="rueda" aria-hidden="true"></div>
+  <div class="grano" aria-hidden="true"></div>
+
+  <header class="topnav claro">
+    <a class="marca" href="menu.html" aria-label="Ir al menú"><img src="assets/logo-nav-blanco.png" alt="Mareo!"></a>
+    <nav aria-label="Principal">
+      <ul>
+        <li><a href="musica.html">Música</a></li>
+        <li><a href="banda.html" aria-current="page">Banda</a></li>
+        <li><a href="envivo.html">En vivo</a></li>
+        <li><a href="#">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="biografia">
+      <p>Mareo!, es la embriaguez de los sonidos, un escape de la convencionalidad, el deseo por romper lo predeterminado enajenando los sentidos. La Intuición, el corazón, y la cabeza, como ejes que hacen girar a Mareo!. Un movimiento permanente, un mantra de sensaciones, que exalta los sentidos, multiplica las emociones, y nos envuelve en un espiral infinito de creación. La banda proyecta desde un inicio interés por internacionalizar su música, es así como durante el 2019 y 2022, Mareo!, realizó dos giras por Japón de un mes cada, más actividades promocionales por las ciudades de Tokio, Osaka y Kioto, realizando mas de 16 conciertos en el país asiático. El grupo, ya tiene un disco debut lanzado en las plataformas de música, titulado, "Tus ojos brillan". Además estrenaron recientemente "Quémame", single que será parte de su segundo disco, el cual fue Grabado por Andrés Minoletti y Camila Sánchez en Radio Estudio Popular de Santiago de Chile, mezclado y masterizado por Gonzalo Gonzales (Chalo G) y Mareo!.</p>
+      <p>La banda pertenece al sello Atacama Records, y al proyecto "Hijas del ritmo". quienes forman parte de la Asociación gremial musical independiente, IMICHILE.</p>
+    </section>
+
+    <section class="galeria" aria-labelledby="titulo-galeria">
+      <h2 id="titulo-galeria">Galería</h2>
+      <ul>
+        <li><button type="button" data-src="assets/galeria/foto-01.jpg"><img src="assets/galeria/foto-01.jpg" alt="Foto de Mareo! 1" loading="lazy"></button></li>
+        <li><button type="button" data-src="assets/galeria/foto-02.jpg"><img src="assets/galeria/foto-02.jpg" alt="Foto de Mareo! 2" loading="lazy"></button></li>
+        <li><button type="button" data-src="assets/galeria/foto-03.jpg"><img src="assets/galeria/foto-03.jpg" alt="Foto de Mareo! 3" loading="lazy"></button></li>
+        <li><button type="button" data-src="assets/galeria/foto-04.jpg"><img src="assets/galeria/foto-04.jpg" alt="Foto de Mareo! 4" loading="lazy"></button></li>
+        <li><button type="button" data-src="assets/galeria/foto-05.jpg"><img src="assets/galeria/foto-05.jpg" alt="Foto de Mareo! 5" loading="lazy"></button></li>
+        <li><button type="button" data-src="assets/galeria/foto-06.jpg"><img src="assets/galeria/foto-06.jpg" alt="Foto de Mareo! 6" loading="lazy"></button></li>
+        <li><button type="button" data-src="assets/galeria/foto-07.jpg"><img src="assets/galeria/foto-07.jpg" alt="Foto de Mareo! 7" loading="lazy"></button></li>
+        <li><button type="button" data-src="assets/galeria/foto-08.jpg"><img src="assets/galeria/foto-08.jpg" alt="Foto de Mareo! 8" loading="lazy"></button></li>
+        <li><button type="button" data-src="assets/galeria/foto-09.jpg"><img src="assets/galeria/foto-09.jpg" alt="Foto de Mareo! 9" loading="lazy"></button></li>
+        <li><button type="button" data-src="assets/galeria/foto-10.jpg"><img src="assets/galeria/foto-10.jpg" alt="Foto de Mareo! 10" loading="lazy"></button></li>
+        <li><button type="button" data-src="assets/galeria/foto-11.jpg"><img src="assets/galeria/foto-11.jpg" alt="Foto de Mareo! 11" loading="lazy"></button></li>
+        <li><button type="button" data-src="assets/galeria/foto-12.jpg"><img src="assets/galeria/foto-12.jpg" alt="Foto de Mareo! 12" loading="lazy"></button></li>
+        <li><button type="button" data-src="assets/galeria/foto-13.jpg"><img src="assets/galeria/foto-13.jpg" alt="Foto de Mareo! 13" loading="lazy"></button></li>
+        <li><button type="button" data-src="assets/galeria/foto-14.jpg"><img src="assets/galeria/foto-14.jpg" alt="Foto de Mareo! 14" loading="lazy"></button></li>
+        <li><button type="button" data-src="assets/galeria/foto-15.jpg"><img src="assets/galeria/foto-15.jpg" alt="Foto de Mareo! 15" loading="lazy"></button></li>
+        <li><button type="button" data-src="assets/galeria/foto-16.jpg"><img src="assets/galeria/foto-16.jpg" alt="Foto de Mareo! 16" loading="lazy"></button></li>
+      </ul>
+    </section>
+  </main>
+
+  <dialog class="visor" aria-label="Foto ampliada">
+    <img alt="">
+    <form method="dialog"><button aria-label="Cerrar">&times;</button></form>
+  </dialog>
+
+  <script>
+    (function () {
+      var visor = document.querySelector('dialog.visor');
+      var img = visor.querySelector('img');
+      document.querySelectorAll('.galeria button').forEach(function (b) {
+        b.addEventListener('click', function () {
+          img.src = b.dataset.src;
+          img.alt = b.querySelector('img').alt;
+          visor.showModal();
+        });
+      });
+      visor.addEventListener('click', function (e) { if (e.target === visor) visor.close(); });
+    })();
+  </script>
+</body>
+</html>
